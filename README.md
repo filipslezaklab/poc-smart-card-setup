@@ -5,10 +5,11 @@ Made to configure openPGP smart card for use with rust programming language only
 ## What does this do
 
 - Checks if smart card supports RSA4096
-- Makes primary RSA key with 2 subkeys
+- Makes primary RSA key with 2 sub-keys
 - Exports primary key's public PGP key into `public.asc`
 - Exports authorization public key as OpenSSH formatted data into `ssh.asc`
-- Imports 2 subkeys and primary key into the card into Authorization, Decryption and Signing slots
+- Imports 2 sub-keys and primary key into the card Authorization, Decryption and Signing slots
+- Sets example metadata
 
 ## How to run
 

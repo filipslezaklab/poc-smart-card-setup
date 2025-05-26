@@ -3,11 +3,7 @@ use std::str::FromStr;
 use card_backend_pcsc::PcscBackend;
 use openpgp_card::{
     Card,
-    ocard::{
-        KeyType,
-        algorithm::AlgorithmAttributes,
-        data::Sex,
-    },
+    ocard::{KeyType, algorithm::AlgorithmAttributes, data::Sex},
     state::{Open, Transaction},
 };
 use tracing::{debug, info};
@@ -44,7 +40,6 @@ pub fn check_supported_rsa_lengths(card: &mut Card<Open>) -> anyhow::Result<()> 
 pub(crate) fn get_card() -> Card<Open> {
     let mut cards = PcscBackend::cards(Some(pcsc::ShareMode::Exclusive)).unwrap();
     if let Some(Ok(card)) = cards.next() {
-        
         Card::new(card).unwrap()
     } else {
         panic!("No cards found");
@@ -53,7 +48,7 @@ pub(crate) fn get_card() -> Card<Open> {
 
 pub(crate) fn get_yubikey_firmware(transaction: &mut Card<Transaction<'_>>) -> String {
     let firmware = transaction.firmware_version().unwrap();
-    
+
     firmware
         .iter()
         .map(|n| n.to_string())
@@ -101,10 +96,10 @@ pub(crate) fn set_ident(card: &mut Card<Open>) -> anyhow::Result<()> {
         )?;
         admin.set_touch_policy(KeyType::Signing, openpgp_card::ocard::data::TouchPolicy::On)?;
         debug!("Touch policy set");
-        let name = "Filip<<Slezak";
+        let name = "FirstName<<LastName";
         admin.set_cardholder_name(name)?;
         debug!("Card holder name set");
-        admin.set_sex(Sex::Male)?;
+        admin.set_sex(Sex::NotKnown)?;
         debug!("Sex set to male");
     }
     info!("Card configured.");
