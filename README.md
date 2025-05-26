@@ -14,3 +14,11 @@ Made to configure openPGP smart card for use with rust programming language only
 ## How to run
 
 Use rust `cargo run -r` command with ONE with fresh wiped out smart card preset, if more then one is detected, program will fail.
+
+### How to prepare yubikey
+
+Use `ykman` CLI program with command:
+
+```bash
+ykman openpgp reset
+```
